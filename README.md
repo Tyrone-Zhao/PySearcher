@@ -15,8 +15,8 @@ pip install --upgrade PySearcher
 
 *python3.7以下版本用户请使用如下方式导入模块*
 ```python
-from PySearcher import PySearcher
-PySearcher.Searcher()
+from PySearcher import Searcher3
+Searcher3()
 ```
 
 ### 首次搜索
@@ -429,24 +429,58 @@ Searcher([
 ......
 ```
 
+### 直接搜索文件名称
+
+当我们不想搜索文件内容，而想在文件名中搜索时，比如想搜文件名中带有"bz"、"2"的文件时，可以这样设置Searcher。
+
+```python
+search_datas = [
+    "bz",
+    "2"
+]
+
+Searcher([
+    "./",
+    # "../",
+    # "/Library/Frameworks/Python.framework/Version/"
+], search_datas, 0, target="", types=[".py"], filename=True)
+```
+**运行结果如下**
+```
+(base) e:\code>cd e:\code && cmd /C "set "PYTHONIOENCODING=UTF-8" && set "PYTHONUNBUFFERED=1" && E:\anaconda\python c:\Users\Administrator\.vscode\extensions\ms-python.python-2019.1.0\pythonFiles\ptvsd_launcher.py --default --client --host localhost --port 49429 e:\code\PySearcher_upload\PySearcher\__init__.py "
+文件名：e:\code\Python-3.7.2\Lib\bz2.py                                                                                                      结果数：1
+文件名：e:\code\Python-3.7.2\Lib\encodings\bz2_codec.py                                                                                      结果数：1
+文件名：e:\code\Python-3.7.2\Lib\test\test_bz2.py                                                                                            结果数：1
+```
+
+
 ## 参数介绍
 - Searcher(self, paths=["./"], search_datas=[], display=True, target="",
-                 relist=[], length=300, types=[".py"], result_type=False, encoding=["utf-8", "latin-1"]):
+                 relist=[], length=300, types=[".py"], result_type=False,
+                 encoding=["utf-8", "latin-1"], filename=False):
 - paths = list -> 可以存放多个指定目录的列表
 - search_datas = list -> 进行多次搜索的数据，字符串列表表示
 - display = bool -> 是否显示查询到的文件内容，为0的话只显示文件名和结果数
 - target = string -> 如果搜索结果不为空的话，可以用target指定部分文件名。程序会通过Vscode或sublime打开搜索结果中的文件(文件名中包含target的文件），否则打开所有文件名中包含target的文件
-- relist = list -> 需要过滤的文件及部分特殊编码的文件，可以只写部分文件名，字符串列表格式
+- relist = list -> 需要过滤的文件及特殊编码的文件，可以只写部分路径内容(此处为全路径过滤)，字符串列表格式
 - length = int -> 设置输出结果块的块大小
 - types = list -> 要查询的文件类型后缀，如[".py", ".html", ".cpp"]
 - result_type = bool -> 显示的结果类型，可以用来修改终端输出结果块的内容。
             为True时显示一个文件内的所有结果块，这些结果块只包含多个搜索内容中的一个。
             为False时显示在一个结果块大小内，同时包含search_datas中搜索内容的结果块。
 - encoding = list -> 编码格式设置参数，PySearcher默认支持"utf-8"及"latin-1"编码。
+- filename = bool -> 是否只查询文件名，True为只查询文件名（非路径）中包含search_dates的文件。
+            为False时，查询文件内容。
 
 
 ## 版本更新
-- 当前版本：V1.4.4  更新记录:
+- 开发中版本：V2.0.1  更新内容:
+支持正则表达式，大小写匹配，以及全字匹配，增加Linux平台打开文件支持
+- 当前版本：V1.6.8  更新记录:
+增加Mac平台及Windows平台打开文件支持
+- 版本：V1.5.8  更新记录:
+增加直接搜索文件名的功能
+- 版本：V1.4.4  更新记录:
 增加Python3所有版本的Python兼容支持
 - 版本：V1.3.4  更新记录:
 增加encoding参数，支持扩展更多的编码格式。
@@ -459,10 +493,10 @@ pip install --upgrade PySearcher
 ```
 
 ## Example:
-*Python3.7 users are advised to import modules in the following manner, with the Searcher Settings consistent with what is described below*
+*Python3.7- users are advised to import modules in the following manner, with the Searcher Settings consistent with what is described below*
 ```python
-from PySearcher import PySearcher
-PySearcher.Searcher()
+from PySearcher import Searcher3
+Searcher3()
 ```
 
 *Python3.7+*
@@ -485,15 +519,17 @@ Searcher([
 ```
 
 - Searcher(self, paths=["./"], search_datas=[], display=True, target="",
-                 relist=[], length=300, types=[".py"], result_type=False, encoding=["utf-8", "latin-1"]):
+                 relist=[], length=300, types=[".py"], result_type=False,
+                 encoding=["utf-8", "latin-1"], filename=False):
 - paths = list-> Can hold lists of multiple specified directories.
 - search_datas = list -> Data search for many times, using string to represent.
 - display = bool-> Displays the contents of the file being queried. If it is 0, only the file name and the number of results will be printed.
 - target = string-> If the search_data is not empty, open the file (or part of filepath) base on the search result which's filepath contains the "target".And printing everything in it. Otherwise opening all the files which's filepath contains "target" through "VScode" or "Sublime Text".
-- relist = list-> The file that needs to be filtered and the file that is not utf-8 encoding(can only write partial filepath). string list formats.
+- relist = list-> The file that needs to be filtered(can only write partial filepath). list of string.
 - length = int -> block size of file's content to be printed. 
 - types = list -> The suffix names of the file to search. For example: [".py", ".html", ".cpp"]
 - result_type = bool -> The type of result block displayed that can be used to modify the contents of the terminal output result block.
         When True, displays all result blocks which in a file that contain only one of search_datas.
         When False, it is displayed in a result block which contains all of search_datas.
 - encoding = list -> Encoding format parameters. PySearcher supports "utf-8" and "latin-1" encoding by default.
+- filename = bool -> Querying only for filenames, True only search in filename (non-path).When False, query the content of files.

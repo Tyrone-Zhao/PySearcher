@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='PySearcher',
-    version='1.4.4',
-    description='Python search engine',
+    version='1.7.0',
+    description='Python Search Engine',
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='code search tools',
