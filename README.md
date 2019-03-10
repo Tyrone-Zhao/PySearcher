@@ -172,7 +172,7 @@ print('使用SVM预测iris数据的结果分析报告为：',classification_repo
 ```
 
 ### 打开指定文件
-此时如果觉得设置结果块大小已不能满足你，那么你还通过可以设置target参数打开文件。目前支持通过Vscode或Sublime打开，会优先使用Vscode。可以这样设置Searcher
+此时如果觉得设置结果块大小已不能满足你，那么你还通过可以设置target参数打开文件。目前支持通过PyCharm、Vscode或Sublime打开，优先级从前到后。可以这样设置Searcher
 
 *target参数是模糊匹配，即输入文件名或路径的一部分即可，如果有多个文件名包含target，则这些文件会全部打开。比如我们想打开搜索结果中的所有python文件，则可以设置target为target="py"*
 ```python
@@ -197,7 +197,7 @@ Searcher([
 (base) e:\code>cd e:\code && cmd /C "set "PYTHONIOENCODING=UTF-8" && set "PYTHONUNBUFFERED=1" && E:\anaconda\python c:\Users\Administrator\.vscode\extensions\ms-python.python-2019.1.0\pythonFiles\ptvsd_launcher.py --default --client --host localhost --port 61275 e:\code\PySearcher_upload\PySearcher\PySearcher.py "
 文件名：E:\Python\book\Python数据分析与应用\第6章\习题程序\code\第6章操作题.py                                                               结果数：1
 
-同时，Vscode或Sublime Text在新标签页中打开了这个文件
+同时，PyCharm、Vscode或Sublime Text在新标签页中打开了这个文件
 ```
 
 ### 搜索更多类型的文件
@@ -461,7 +461,7 @@ Searcher([
 - paths = list -> 可以存放多个指定目录的列表
 - search_datas = list -> 进行多次搜索的数据，字符串列表表示
 - display = bool -> 是否显示查询到的文件内容，为0的话只显示文件名和结果数
-- target = string -> 如果搜索结果不为空的话，可以用target指定部分文件名。程序会通过Vscode或sublime打开搜索结果中的文件(文件名中包含target的文件），否则打开所有文件名中包含target的文件
+- target = string -> 如果搜索结果不为空的话，可以用target指定部分文件名。程序会通过PyCharm、Vscode或sublime打开搜索结果中的文件(文件名中包含target的文件），否则打开所有文件名中包含target的文件
 - relist = list -> 需要过滤的文件及特殊编码的文件，可以只写部分路径内容(此处为全路径过滤)，字符串列表格式
 - length = int -> 设置输出结果块的块大小
 - types = list -> 要查询的文件类型后缀，如[".py", ".html", ".cpp"]
@@ -526,7 +526,7 @@ Searcher([
 - paths = list-> Can hold lists of multiple specified directories.
 - search_datas = list -> Data search for many times, using string to represent.
 - display = bool-> Displays the contents of the file being queried. If it is 0, only the file name and the number of results will be printed.
-- target = string-> If the search_data is not empty, open the file (or part of filepath) base on the search result which's filepath contains the "target".And printing everything in it. Otherwise opening all the files which's filepath contains "target" through "VScode" or "Sublime Text".
+- target = string-> If the search_data is not empty, open the file (or part of filepath) base on the search result which's filepath contains the "target".And printing everything in it. Otherwise opening all the files which's filepath contains "target" through "PyCharm"、"VScode" or "Sublime Text".
 - relist = list-> The file that needs to be filtered(can only write partial filepath). list of string.
 - length = int -> block size of file's content to be printed. 
 - types = list -> The suffix names of the file to search. For example: [".py", ".html", ".cpp"]
