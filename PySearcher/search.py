@@ -224,9 +224,11 @@ class Searcher:
         if self.target:
             if self.target in self.file:
                 self.showFileProperties(self.file, len(self.li))
-                if run(["code", self.file], shell=True, stderr=DEVNULL).\
+                if run(["charm", self.file], shell=True, stderr=DEVNULL). \
                         returncode:
-                    run(["subl", self.file], shell=True, stderr=DEVNULL)
+                    if run(["code", self.file], shell=True, stderr=DEVNULL).\
+                            returncode:
+                        run(["subl", self.file], shell=True, stderr=DEVNULL)
         else:
             self.showFileProperties(self.file, len(self.li))
             if self.display:
@@ -237,12 +239,15 @@ class Searcher:
 
     def showResultMac(self):
         ''' Mac 平台打印结果 '''
+        import sys
         if self.target:
             if self.target in self.file:
                 self.showFileProperties(self.file, len(self.li))
-                if run(["open", "-a", "Visual Studio Code", self.file], stderr=DEVNULL).\
+                if run(["open", "-a", "PyCharm", self.file], stderr=DEVNULL).\
                         returncode:
-                    run(["subl", self.file], stderr=DEVNULL)
+                    if run(["open", "-a", "Visual Studio Code", self.file], stderr=DEVNULL).\
+                        returncode:
+                        run(["subl", self.file], stderr=DEVNULL)
         else:
             self.showFileProperties(self.file, len(self.li))
             if self.display:
@@ -326,9 +331,6 @@ class Searcher3(Searcher):
 
 
 if __name__ == "__main__":
-    # cd GitHub/PySearcher_upload && rm -rf dist/* && python3 setup.py sdist bdist_wheel
-    # twine upload dist/*
-    # pip3 install -i https://pypi.org/project/ --user --upgrade pysearcher
     import time
     start = time.time()
     encoding = [
